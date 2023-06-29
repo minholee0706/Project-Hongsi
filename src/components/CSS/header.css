@@ -1,0 +1,51 @@
+.Header_All{
+    width : 100%;
+    height: 7vh;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+}
+
+.Header_Shop_About{
+    margin-left: 20%;
+    margin-right: 25%;
+    margin-top: 10px;
+}
+
+.Header_Shop_About1{ 
+    margin-left: 30%;
+    margin-right: 28%;
+    color : gray;
+    font-size: 2ch;
+    margin-bottom: 10px;
+    
+}
+
+.Header_Shop_About_a{
+    margin-right: 25%;
+    text-decoration: none;
+    color : gray;
+    font-size: 2ch;
+}
+
+.Header_Modal{
+    text-decoration: none;
+    margin-left : 30%;
+}
+
+.Header_Logo{
+    font-size: x-large;
+    font-weight: 600;
+    color : black;
+    width : 500px;
+    margin-top: 20px;
+    
+}
+.Header_Logo_IMG{
+    margin-right: 10px;
+}
+
+.Header_contents{
+    margin-right: 50%;
+    font-size: large;
+}
