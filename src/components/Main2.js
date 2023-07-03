@@ -1,5 +1,6 @@
 import React from "react";
 import './CSS/Main2.css';
+import Dog_Pic_Data from "./dog_pic_data";
 
 
 const Main2 =()=>{
@@ -18,7 +19,9 @@ const Main2 =()=>{
                 <a className="Main2_Logout" href="http://localhost:4000/logout">Logout</a>   
               </div>
           </div>
-          
+          <div>
+            <Dog_Pic_Data />
+          </div>
         </>
     )
 }

@@ -10,11 +10,11 @@ const db = require('./lib/db');
 const sessionOption = require('./lib/sessionOption');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
-const { redirect } = require('react-router-dom');
+const {redirect} = require('react-router-dom');
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // 기본적으로 REST API에서는 데이터를 주고 받을 때 JSON 데이터 형식으로 주고 받는다.
 
 var MySQLStore = require('express-mysql-session')(session);
 var sessionStore = new MySQLStore(sessionOption);
@@ -126,6 +126,41 @@ app.post("/signin", (req, res) => {  // 데이터 받아서 결과 전송
     
 });
 
+// -------------------------------------------------------------------
+// ---------------------DOGDATA --------------------------------------
+
+const multer = require('multer');
+const upload = multer({dest : 'upload/'});
+
+//실제로 고객데이터삽입요청 처리해아한다. 
+// app.get('/api/dogData', (req,res) => {
+//     //디비 접근하기
+//     db.query(
+//       //쿼리 날리기
+//       "select * from dog_pic",
+//       (err, rows, fields)=>{
+//         res.send(rows);
+//       }
+       
+//     );
+// });
+
+app.use('/image', express.static('/upload'));
+app.post('/dogData', upload.single('dogPic'), (req, res) =>{
+    console.log('/api/dogData', req.body)
+    let sql = 'INSERT INTO dog_pic (name, age, sex, username, dogPic) VALUES(?,?,?,?,null)';
+    let name = req.body.name;
+    let age = req.body.age;
+    let sex = req.body.sex;
+    let username = req.body.id;
+    let dogPic = '/image' + req.body.filename;
+    console.log(res);
+
+    let params = [name, age, sex, username, dogPic];
+    db.query(sql, params, (err, rows, field) =>{
+        console.log(err)
+    })
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
