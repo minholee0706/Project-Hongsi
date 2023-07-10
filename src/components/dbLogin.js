@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import './CSS/dbLogin.css'
 
 // import './CSS/dbLogin.css';
 
@@ -9,13 +10,12 @@ function Login(props) {
   const [password, setPassword] = useState("");
   
   return <>
-    <h2>로그인</h2>
 
     <div className="form">
-      <p><input className="login" type="text" name="username" placeholder="아이디" onChange={event => {
+      <p><input className="login" type="text" name="username" placeholder="아이디를 입력해주세요." onChange={event => {
         setId(event.target.value);
       }} /></p>
-      <p><input className="login" type="password" name="pwd" placeholder="비밀번호" onChange={event => {
+      <p><input className="login" type="password" name="pwd" placeholder="비밀번호를 입력해주세요" onChange={event => {
         setPassword(event.target.value);
       }} /></p>
 
@@ -40,12 +40,15 @@ function Login(props) {
               alert(json.isLogin)
             }
           });
-      }} /></p>
+      }} />
+      <button onClick={() => {props.setMode("SIGNIN");}}>회원가입</button>
+      </p>
+      
     </div>
 
-    <p>계정이 없으신가요?  <button onClick={() => {
+    {/* <p><button onClick={() => {
       props.setMode("SIGNIN");
-    }}>회원가입</button></p>
+    }}>회원가입</button></p> */}
   </> 
 }
 
@@ -60,7 +63,7 @@ function Signin(props) {
     <h2>회원가입</h2>
 
     <div className="form">
-      <p><input className="login" type="text" placeholder="아이디" onChange={event => {
+      <p><input className="login" type="text" placeholder="아이디를 입력해주세요" onChange={event => {
         setId(event.target.value);
       }} /></p>
       <p><input className="login" type="password" placeholder="비밀번호" onChange={event => {

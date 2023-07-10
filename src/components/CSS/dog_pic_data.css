@@ -1,0 +1,42 @@
+.dogData_DIV{
+    width: 100%;
+    height: 91.8vh;
+    display: flex;
+}
+.dogData_info{
+    width: 50%;
+    
+    display :flex;
+    justify-content: center;
+    align-items: center;
+    float : left;
+    margin-left: 100px;
+}
+
+.dogData_submit{
+    width : 300px;
+    height: 40vh;
+    margin-bottom: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
+    float : left;
+}
+
+.dogData_preview{
+    
+    width : 400px;
+    display : flex;
+    justify-content: center;
+}
+
+.dogData_preview_box{
+    background-color: rgb(207, 237, 255);
+    width : 380px;
+    height: 56vh;
+    margin-left: 4%;
+    margin-top: 8vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    word-break:break-all;
+    float : left;
+}

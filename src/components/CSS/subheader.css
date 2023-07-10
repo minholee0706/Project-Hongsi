@@ -1,24 +1,39 @@
-.Main2_Header_div{
+.sub_Header_div{
     width : 100%;
     height: 8vh;
     justify-content: left;
     align-items: center;
     display: flex;
     border-bottom: 2px solid black;
-    background-color: aqua;
+    
 }
 
-.Main2_Logout{
+.sub_Header_routing{
+    margin-right: 10%;
+}
+
+.sub_Header_Posting{
     text-decoration: none;
     margin-top: 50px;
     margin-left : 10%;
     margin-right: 10%;
 }
 
-.Header_Logo{
+.sub_Header_Logout{
+    text-decoration: none;
+    margin-top: 50px;
+    margin-left : 10%;
+    margin-right: 10%;
+}
+
+.sub_Header_Logo{
     font-size: x-large;
     font-weight: 600;
     color : black;
     width : 500px;
     margin-top: 0px;
+}
+.Main_routing{
+    text-decoration: none;
+    color : black;
 }

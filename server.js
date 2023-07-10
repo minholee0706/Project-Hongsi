@@ -6,6 +6,7 @@ const app = express();
 const port = 4000;
 
 
+
 const db = require('./lib/db');
 const sessionOption = require('./lib/sessionOption');
 const bodyParser = require("body-parser");
@@ -130,33 +131,46 @@ app.post("/signin", (req, res) => {  // 데이터 받아서 결과 전송
 // ---------------------DOGDATA --------------------------------------
 
 const multer = require('multer');
-const upload = multer({dest : 'upload/'});
+const upload = multer({ storage: multer.diskStorage({
+    destination:function(req,file,callback){
+        callback(null,'uploads/') // uploads => 폴더명
+    },
+    filename:function(req,file,callback){
+        callback(null,new Date().valueOf() + path.extname(file.originalname))
+    }
+}),});
 
 //실제로 고객데이터삽입요청 처리해아한다. 
-// app.get('/api/dogData', (req,res) => {
-//     //디비 접근하기
-//     db.query(
-//       //쿼리 날리기
-//       "select * from dog_pic",
-//       (err, rows, fields)=>{
-//         res.send(rows);
-//       }
+app.get('/api/dogData', (req,res) => {
+    //디비 접근하기
+    db.query(
+      //쿼리 날리기
+      "select * from dog_pic",
+      (err, rows, fields)=>{
+        res.send(rows);
+      }
        
-//     );
-// });
+    );
+});
 
-app.use('/image', express.static('/upload'));
-app.post('/dogData', upload.single('dogPic'), (req, res) =>{
-    console.log('/api/dogData', req.body)
-    let sql = 'INSERT INTO dog_pic (name, age, sex, username, dogPic) VALUES(?,?,?,?,null)';
+
+
+
+app.use('/image', express.static('./uploads'));
+
+app.post('/dogData', upload.single('file'), (req, res) =>{
+    
+    console.log(req.file.filename)
+    let sql = 'INSERT INTO dog_pic (name, age, sex, username, dogText, dogPic) VALUES(?,?,?,?,?,?)';
     let name = req.body.name;
     let age = req.body.age;
     let sex = req.body.sex;
-    let username = req.body.id;
-    let dogPic = '/image' + req.body.filename;
-    console.log(res);
+    let username = req.body.username;
+    let dogText = req.body.dogText;
+    let dogPic = '/image/' + req.file.filename;
+   
 
-    let params = [name, age, sex, username, dogPic];
+    let params = [name, age, sex, username, dogText, dogPic];
     db.query(sql, params, (err, rows, field) =>{
         console.log(err)
     })
