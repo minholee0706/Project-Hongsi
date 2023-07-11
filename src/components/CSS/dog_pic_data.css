@@ -5,12 +5,27 @@
 }
 .dogData_info{
     width: 50%;
-    
     display :flex;
     justify-content: center;
     align-items: center;
     float : left;
     margin-left: 100px;
+}
+
+.dog_data{
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    background: none;
+    font-weight: 700;
+    transition: .2s;
+    width : 85%;
+}
+
+.dog_data:active,
+.dog_data:focus,
+.dog_data:hover {
+  outline: none;
+  border-bottom-color: rgb(68, 112, 67);
 }
 
 .dogData_submit{
@@ -27,6 +42,7 @@
     width : 400px;
     display : flex;
     justify-content: center;
+    font-family: 'Jua', sans-serif;
 }
 
 .dogData_preview_box{

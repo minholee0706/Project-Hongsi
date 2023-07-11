@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 .get_Data_div{
     width : 100%;
     height: 50vh;
+    font-family: 'Jua', sans-serif;
 }
 
 .get_Data{

@@ -20,7 +20,7 @@ const Header =()=> {
     }); 
   
     return(
-        <div class="Header_All">
+        <div className="Header_All">
            <div className="Header_Shop_About">             
                     <a className="Header_Shop_About_a"   >Shop</a>
             </div>

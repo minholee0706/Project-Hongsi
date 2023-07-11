@@ -56,7 +56,7 @@ app.get('/logout', function (req, res) {
 app.post("/login", (req, res) => { // 데이터 받아서 결과 전송
     const username = req.body.userId;
     const password = req.body.userPassword;
-    const sendData = { isLogin: "" };
+    const sendData = { isLogin: "", userId : "" };
 
     if (username && password) {             // id와 pw가 입력되었는지 확인
         console.log(sendData)
@@ -71,8 +71,11 @@ app.post("/login", (req, res) => { // 데이터 받아서 결과 전송
                         req.session.nickname = username;
                         req.session.save(function () {
                             sendData.isLogin = "True"
+                            sendData.userId = username;                        
                             res.send(sendData);
+                            console.log(sendData)
                         });
+                        
                         db.query(`INSERT INTO logTable (created, username, action, command, actiondetail) VALUES (NOW(), ?, 'login' , ?, ?)`
                             , [req.session.nickname, '-', `React 로그인 테스트`], function (error, result) { });  
                     }

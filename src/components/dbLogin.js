@@ -2,12 +2,16 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import './CSS/dbLogin.css'
+import {useNavigate} from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../_actions/user_action';
 
 // import './CSS/dbLogin.css';
 
 function Login(props) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   
   return <>
 
@@ -24,24 +28,11 @@ function Login(props) {
           userId: id,
           userPassword: password,
         };
-        fetch("/login", { //auth 주소에서 받을 예정
-          method: "post", // method :통신방법
-          headers: {      // headers: API 응답에 대한 정보를 담음
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(userData), //userData라는 객체를 보냄
-        })
-          .then((res) => res.json())
-          .then((json) => {            
-            if(json.isLogin==="True"){
-              props.setMode("WELCOME");
-            }
-            else {
-              alert(json.isLogin)
-            }
-          });
+        dispatch(loginUser(userData, props));
+        
+        
       }} />
-      <button onClick={() => {props.setMode("SIGNIN");}}>회원가입</button>
+      <button className="btn_makeID" onClick={() => {props.setMode("SIGNIN");}}>회원가입</button>
       </p>
       
     </div>
@@ -59,8 +50,6 @@ function Signin(props) {
   const [password2, setPassword2] = useState("");
 
   return <>
-    
-    <h2>회원가입</h2>
 
     <div className="form">
       <p><input className="login" type="text" placeholder="아이디를 입력해주세요" onChange={event => {
@@ -99,7 +88,7 @@ function Signin(props) {
       }} /></p>
     </div>
 
-    <p>로그인화면으로 돌아가기  <button onClick={() => {
+    <p>로그인화면으로 돌아가기  <button className='btn_makeID' onClick={() => {
       props.setMode("LOGIN");
     }}>로그인</button></p>
   </> 
@@ -107,6 +96,8 @@ function Signin(props) {
 
 function DB_Login() {
   const [mode, setMode] = useState("");
+  const navigate = useNavigate();
+
   
   useEffect(() => {
     fetch("/authcheck")
@@ -130,13 +121,13 @@ function DB_Login() {
     content = <Signin setMode={setMode}></Signin> 
   }
   else if (mode === 'WELCOME') {
-    // navigate("/");
-    content =<>
-    <h2>메인 페이지에 오신 것을 환영합니다</h2>
-    <p>로그인에 성공하셨습니다.</p>
-    <div><a href="http://localhost:3000/Main2">구경하러가기</a> </div>
-    <a href="http://localhost:4000/logout">로그아웃</a>   
-    </>
+    navigate("/Main2");
+    // content =<>
+    // <h2>메인 페이지에 오신 것을 환영합니다</h2>
+    // <p>로그인에 성공하셨습니다.</p>
+    // <div><a href="http://localhost:3000/Main2">구경하러가기</a> </div>
+    // <a href="http://localhost:4000/logout">로그아웃</a>   
+    // </>
   }
 
   return (
