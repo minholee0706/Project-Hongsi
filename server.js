@@ -156,7 +156,18 @@ app.get('/api/dogData', (req,res) => {
     );
 });
 
-
+app.get('/api/dogData/MY', (req,res) => {
+    const userID = req.body.username;
+    //디비 접근하기
+    db.query(
+      //쿼리 날리기
+      "select * from dog_pic where username Like userID = ?", [userID],
+      (err, rows, fields)=>{
+        res.send(rows);
+      }
+       
+    );
+});
 
 
 app.use('/image', express.static('./uploads'));

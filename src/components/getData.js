@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './CSS/getData.css';
 
+
 const GetData =()=> {
     const [dogData, setDogData] = useState();
 
@@ -13,8 +14,10 @@ const GetData =()=> {
         })
     },[])
 
+   
     return (
         <>
+            
             <div className="get_Data_div">
             {
                 dogData && dogData.map((data,i) =>(

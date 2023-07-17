@@ -1,8 +1,9 @@
 import React from "react";
 import './CSS/subheader.css';
+import { useNavigate } from "react-router-dom";
 
 const SubHeader =()=> {
-
+    const navigate = useNavigate();
 
     return(
         <>
@@ -13,11 +14,15 @@ const SubHeader =()=> {
                 </div>
 
                 <div className="sub_Header_routing">
-                    <a className="sub_Header_Posting" href="http://localhost:3000/Main2">Gallery</a>
+                    <a className="sub_Header_Posting" onClick={()=> navigate("/Main2")}> Gallery</a>
                 </div>
 
                 <div className="sub_Header_routing">
-                    <a className="sub_Header_Posting" href="http://localhost:3000/Posting">Posting</a>
+                    <a className="sub_Header_Posting" onClick={()=> navigate("/Posting")}>Posting</a>
+                </div>
+
+                <div className="sub_Header_routing">
+                    <a className="sub_Header_Posting" onClick={()=> navigate("/MyPage")}>MyPage</a>
                 </div>
                     
                 <div className="sub_Header_routing">

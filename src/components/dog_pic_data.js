@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import './CSS/dog_pic_data.css';
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Dog_Pic_Data =()=>{
-    
+    const state_userId = useSelector( (state) => state);    
     const [dogName, setDogName] = useState("");
     const [dogAge, setDogAge] = useState("");
     const [dogSex, setDogSex] = useState("");
-    const [id, setId] = useState("");
     const [dogText, setDogText] = useState("");
     const [dogPic, setDogPic] = useState({
         file : "",
@@ -15,7 +15,8 @@ const Dog_Pic_Data =()=>{
 
     const handleFormSubmit =(e) =>{
         e.preventDefault()
-        addDogData()
+        addDogData();
+        alertSubmit();
     }
 
     const handleFileChange =(e) =>{//file[0]이게 아니라 files[0] 이거임
@@ -24,6 +25,10 @@ const Dog_Pic_Data =()=>{
             // fileName:e.target.value
         )
         encodeFileToBase64(e.target.files[0]);
+    }
+
+    const alertSubmit =()=>{
+        alert("포스팅이 완료되었어요!")
     }
 
     const encodeFileToBase64 = (fileBlob) => {
@@ -43,7 +48,7 @@ const Dog_Pic_Data =()=>{
     formData.append('name', dogName);
     formData.append('age', dogAge);
     formData.append('sex', dogSex);
-    formData.append('username', id);
+    formData.append('username', state_userId.user.loginSuccess.userId);
     formData.append('dogText', dogText);
     formData.append('file', dogPic);
     
@@ -62,8 +67,8 @@ const Dog_Pic_Data =()=>{
       });
     
   }
-
- 
+    
+    
     return (
         <>
             <div className="dogData_DIV">
@@ -81,7 +86,7 @@ const Dog_Pic_Data =()=>{
                             <input className="dog_data" type="text" placeholder="반려동물 성별" onChange={event => {setDogSex(event.target.value);}} />
                         </p>
                         <p>
-                            <input className="dog_data" type="text" placeholder="반려인 ID" onChange={event => {setId(event.target.value);}} />
+                            <input className="dog_data" type="text" placeholder="반려인 ID" value={state_userId.user.loginSuccess.userId} />
                         </p>
                         <p>
                             <input className="dog_data" type="text" placeholder="반려동물 소개" onChange={event => {setDogText(event.target.value);}} />
@@ -89,7 +94,7 @@ const Dog_Pic_Data =()=>{
                         <p>
                             <input className="dog_data" type="file" name="file" onChange={handleFileChange} />
                         </p>
-                        {/* <button onClick={()=>Img_upload()}>123</button> */}
+                        
                         <p><button className="btn" type="submit" >포스팅하기!</button></p>
                     </form>
                 </div>
@@ -99,7 +104,7 @@ const Dog_Pic_Data =()=>{
                     <div className="dogData_preview_box">
                     <div className="dogData_preview_h1"><h1>PreView</h1></div>
                         <div className="get_Data_username">
-                          { id && id ? id : "반려인 ID" }
+                          { state_userId.user.loginSuccess.userId }
                         </div>
                         <img src={dogPicPreview} className="get_Data_dogPic"/>
                         <div>

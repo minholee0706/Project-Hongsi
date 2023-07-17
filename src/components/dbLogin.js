@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import './CSS/dbLogin.css'
 import {useNavigate} from "react-router-dom"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../_actions/user_action';
 
 // import './CSS/dbLogin.css';
@@ -12,7 +12,7 @@ function Login(props) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  
+
   return <>
 
     <div className="form">
@@ -28,10 +28,11 @@ function Login(props) {
           userId: id,
           userPassword: password,
         };
-        dispatch(loginUser(userData, props));
-        
-        
+        dispatch(loginUser(userData))
+
+   
       }} />
+      
       <button className="btn_makeID" onClick={() => {props.setMode("SIGNIN");}}>회원가입</button>
       </p>
       
@@ -97,7 +98,7 @@ function Signin(props) {
 function DB_Login() {
   const [mode, setMode] = useState("");
   const navigate = useNavigate();
-
+  const state_isLogin = useSelector( (state) => state);    
   
   useEffect(() => {
     fetch("/authcheck")
@@ -110,7 +111,7 @@ function DB_Login() {
           setMode("LOGIN");
         }
       });
-  }, []); 
+  }, [state_isLogin]); 
 
   let content = null;  
 
